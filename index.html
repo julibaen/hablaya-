@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bilingual Tap-Translator (EN↔ES)</title>
+  <style>
+    :root{
+      --en-color:#000;
+      --es-color:#0a8f2a;
+      --en-size:20px;
+      --es-size:14px;
+      --gap-x:10px;
+      --gap-y:12px;
+      --pad-x:12px;
+      --pad-y:10px;
+      --radius:10px;
+    }
+    html,body{margin:0;padding:0;background:#fff;color:#111;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+    #app{padding:16px;max-width:1100px;margin:0 auto;}
+    .paragraph{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      gap:var(--gap-y) var(--gap-x);
+      margin:0 0 18px 0;
+    }
+    .cell{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-end;
+      background:transparent;
+      border:none;
+      border-radius:var(--radius);
+      padding:var(--pad-y) var(--pad-x);
+      box-sizing:border-box;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .cell:active{background:rgba(0,0,0,0.06);}
+    .es{
+      display:none;
+      font-size:var(--es-size);
+      line-height:1.15;
+      color:var(--es-color);
+      text-align:center;
+      margin:0 0 6px 0;
+      white-space:nowrap;
+    }
+    .en{
+      appearance:none;
+      -webkit-appearance:none;
+      border:none;
+      background:transparent;
+      padding:0;
+      margin:0;
+      font-size:var(--en-size);
+      line-height:1.15;
+      color:var(--en-color);
+      text-align:center;
+      white-space:nowrap; /* NO WRAP */
+      font-weight:400;
+      cursor:pointer;
+    }
+    .cell.open .es{display:block;}
+    .cell.open .en{font-weight:700;}
+    /* keep layout stable when bold: width is precomputed including bold */
+    .errorBox{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#fff3f3;
+      color:#7a0000;
+      font-size:14px;
+      line-height:1.35;
+      white-space:pre-wrap;
+    }
+  </style>
+<style type="text/css">
+.grande { font-size: 60px; }
+</style>
+<script>
+// Escribir aqui el código Javascript
+</script>
+</head>
+<body>
+<div id="app" aria-label="Bilingual Tap-Translator"><div class="paragraph" data-paragraph="0"><div class="cell" data-id="p0-t0" role="button" tabindex="0" style="width: 88px;"><div class="es" data-id="p0-t0">Hoy,</div><button class="en" type="button" data-id="p0-t0" data-en="Today,">Today,</button></div><div class="cell" data-id="p0-t1" role="button" tabindex="0" style="width: 99px;"><div class="es" data-id="p0-t1">elegí</div><button class="en" type="button" data-id="p0-t1" data-en="I picked">I picked</button></div><div class="cell" data-id="p0-t2" role="button" tabindex="0" style="width: 158px;"><div class="es" data-id="p0-t2">un tema tranquilo:</div><button class="en" type="button" data-id="p0-t2" data-en="a calm theme:">a calm theme:</button></div><div class="cell" data-id="p0-t3" role="button" tabindex="0" style="width: 160px;"><div class="es" data-id="p0-t3">hábitos constantes.</div><button class="en" type="button" data-id="p0-t3" data-en="steady habits.">steady habits.</button></div><div class="cell" data-id="p0-t4" role="button" tabindex="0" style="width: 159px;"><div class="es" data-id="p0-t4">Los pasos pequeños</div><button class="en" type="button" data-id="p0-t4" data-en="Small steps">Small steps</button></div><div class="cell" data-id="p0-t5" role="button" tabindex="0" style="width: 220px;"><div class="es" data-id="p0-t5">pueden hacer que el progreso</div><button class="en" type="button" data-id="p0-t5" data-en="can make progress">can make progress</button></div><div class="cell" data-id="p0-t6" role="button" tabindex="0" style="width: 116px;"><div class="es" data-id="p0-t6">se sienta real.</div><button class="en" type="button" data-id="p0-t6" data-en="feel real.">feel real.</button></div></div><div class="paragraph" data-paragraph="1"><div class="cell" data-id="p1-t0" role="button" tabindex="0" style="width: 168px;"><div class="es" data-id="p1-t0">Por la mañana,</div><button class="en" type="button" data-id="p1-t0" data-en="In the morning,">In the morning,</button></div><div class="cell" data-id="p1-t1" role="button" tabindex="0" style="width: 143px;"><div class="es" data-id="p1-t1">bebo agua</div><button class="en" type="button" data-id="p1-t1" data-en="I drink water">I drink water</button></div><div class="cell" data-id="p1-t2" role="button" tabindex="0" style="width: 158px;"><div class="es" data-id="p1-t2">antes del café.</div><button class="en" type="button" data-id="p1-t2" data-en="before coffee.">before coffee.</button></div><div class="cell" data-id="p1-t3" role="button" tabindex="0" style="width: 186px;"><div class="es" data-id="p1-t3">Ese inicio sencillo</div><button class="en" type="button" data-id="p1-t3" data-en="That simple start">That simple start</button></div><div class="cell" data-id="p1-t4" role="button" tabindex="0" style="width: 165px;"><div class="es" data-id="p1-t4">ayuda al cuerpo</div><button class="en" type="button" data-id="p1-t4" data-en="helps the body">helps the body</button></div><div class="cell" data-id="p1-t5" role="button" tabindex="0" style="width: 209px;"><div class="es" data-id="p1-t5">a despertarse con suavidad.</div><button class="en" type="button" data-id="p1-t5" data-en="wake up gently.">wake up gently.</button></div></div><div class="paragraph" data-paragraph="2"><div class="cell" data-id="p2-t0" role="button" tabindex="0" style="width: 142px;"><div class="es" data-id="p2-t0">Cuando las tareas</div><button class="en" type="button" data-id="p2-t0" data-en="When tasks">When tasks</button></div><div class="cell" data-id="p2-t1" role="button" tabindex="0" style="width: 154px;"><div class="es" data-id="p2-t1">se sienten pesadas,</div><button class="en" type="button" data-id="p2-t1" data-en="feel heavy,">feel heavy,</button></div><div class="cell" data-id="p2-t2" role="button" tabindex="0" style="width: 85px;"><div class="es" data-id="p2-t2">escribo</div><button class="en" type="button" data-id="p2-t2" data-en="I write">I write</button></div><div class="cell" data-id="p2-t3" role="button" tabindex="0" style="width: 171px;"><div class="es" data-id="p2-t3">tres prioridades.</div><button class="en" type="button" data-id="p2-t3" data-en="three priorities.">three priorities.</button></div><div class="cell" data-id="p2-t4" role="button" tabindex="0" style="width: 115px;"><div class="es" data-id="p2-t4">Ese límite</div><button class="en" type="button" data-id="p2-t4" data-en="That limit">That limit</button></div><div class="cell" data-id="p2-t5" role="button" tabindex="0" style="width: 230px;"><div class="es" data-id="p2-t5">puede hacer que las decisiones</div><button class="en" type="button" data-id="p2-t5" data-en="can make choices">can make choices</button></div><div class="cell" data-id="p2-t6" role="button" tabindex="0" style="width: 145px;"><div class="es" data-id="p2-t6">sean más fáciles.</div><button class="en" type="button" data-id="p2-t6" data-en="come easier.">come easier.</button></div></div><div class="paragraph" data-paragraph="3"><div class="cell" data-id="p3-t0" role="button" tabindex="0" style="width: 82px;"><div class="es" data-id="p3-t0">Pongo</div><button class="en" type="button" data-id="p3-t0" data-en="I keep">I keep</button></div><div class="cell" data-id="p3-t1" role="button" tabindex="0" style="width: 171px;"><div class="es" data-id="p3-t1">un temporizador corto</div><button class="en" type="button" data-id="p3-t1" data-en="a short timer">a short timer</button></div><div class="cell" data-id="p3-t2" role="button" tabindex="0" style="width: 198px;"><div class="es" data-id="p3-t2">para trabajar concentrado.</div><button class="en" type="button" data-id="p3-t2" data-en="for focused work.">for focused work.</button></div><div class="cell" data-id="p3-t3" role="button" tabindex="0" style="width: 129px;"><div class="es" data-id="p3-t3">Me ayuda</div><button class="en" type="button" data-id="p3-t3" data-en="It helps me">It helps me</button></div><div class="cell" data-id="p3-t4" role="button" tabindex="0" style="width: 151px;"><div class="es" data-id="p3-t4">a no distraerme</div><button class="en" type="button" data-id="p3-t4" data-en="avoid drifting">avoid drifting</button></div><div class="cell" data-id="p3-t5" role="button" tabindex="0" style="width: 217px;"><div class="es" data-id="p3-t5">y a terminar una cosa.</div><button class="en" type="button" data-id="p3-t5" data-en="and finish one thing.">and finish one thing.</button></div></div><div class="paragraph" data-paragraph="4"><div class="cell" data-id="p4-t0" role="button" tabindex="0" style="width: 95px;"><div class="es" data-id="p4-t0">Si el ruido</div><button class="en" type="button" data-id="p4-t0" data-en="If noise">If noise</button></div><div class="cell" data-id="p4-t1" role="button" tabindex="0" style="width: 118px;"><div class="es" data-id="p4-t1">se acumula,</div><button class="en" type="button" data-id="p4-t1" data-en="builds up,">builds up,</button></div><div class="cell" data-id="p4-t2" role="button" tabindex="0" style="width: 105px;"><div class="es" data-id="p4-t2">lo bajo</div><button class="en" type="button" data-id="p4-t2" data-en="I lower it">I lower it</button></div><div class="cell" data-id="p4-t3" role="button" tabindex="0" style="width: 140px;"><div class="es" data-id="p4-t3">cuando puedo.</div><button class="en" type="button" data-id="p4-t3" data-en="where I can.">where I can.</button></div><div class="cell" data-id="p4-t4" role="button" tabindex="0" style="width: 159px;"><div class="es" data-id="p4-t4">Un espacio tranquilo</div><button class="en" type="button" data-id="p4-t4" data-en="Quiet space">Quiet space</button></div><div class="cell" data-id="p4-t5" role="button" tabindex="0" style="width: 179px;"><div class="es" data-id="p4-t5">ayuda a que la atención</div><button class="en" type="button" data-id="p4-t5" data-en="helps attention">helps attention</button></div><div class="cell" data-id="p4-t6" role="button" tabindex="0" style="width: 182px;"><div class="es" data-id="p4-t6">se mantenga constante.</div><button class="en" type="button" data-id="p4-t6" data-en="stay steady.">stay steady.</button></div></div><div class="paragraph" data-paragraph="5"><div class="cell" data-id="p5-t0" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p5-t0">Un escritorio ordenado</div><button class="en" type="button" data-id="p5-t0" data-en="A clean desk">A clean desk</button></div><div class="cell" data-id="p5-t1" role="button" tabindex="0" style="width: 215px;"><div class="es" data-id="p5-t1">hace que el siguiente paso</div><button class="en" type="button" data-id="p5-t1" data-en="makes the next step">makes the next step</button></div><div class="cell" data-id="p5-t2" role="button" tabindex="0" style="width: 171px;"><div class="es" data-id="p5-t2">se sienta más sencillo.</div><button class="en" type="button" data-id="p5-t2" data-en="feel simpler.">feel simpler.</button></div><div class="cell" data-id="p5-t3" role="button" tabindex="0" style="width: 83px;"><div class="es" data-id="p5-t3">Limpio</div><button class="en" type="button" data-id="p5-t3" data-en="I clear">I clear</button></div><div class="cell" data-id="p5-t4" role="button" tabindex="0" style="width: 167px;"><div class="es" data-id="p5-t4">solo una esquina</div><button class="en" type="button" data-id="p5-t4" data-en="just one corner">just one corner</button></div><div class="cell" data-id="p5-t5" role="button" tabindex="0" style="width: 118px;"><div class="es" data-id="p5-t5">para empezar.</div><button class="en" type="button" data-id="p5-t5" data-en="to begin.">to begin.</button></div></div><div class="paragraph" data-paragraph="6"><div class="cell" data-id="p6-t0" role="button" tabindex="0" style="width: 105px;"><div class="es" data-id="p6-t0">Elijo</div><button class="en" type="button" data-id="p6-t0" data-en="I choose">I choose</button></div><div class="cell" data-id="p6-t1" role="button" tabindex="0" style="width: 195px;"><div class="es" data-id="p6-t1">herramientas para cocinar</div><button class="en" type="button" data-id="p6-t1" data-en="tools for cooking">tools for cooking</button></div><div class="cell" data-id="p6-t2" role="button" tabindex="0" style="width: 231px;"><div class="es" data-id="p6-t2">que sean fáciles de lavar.</div><button class="en" type="button" data-id="p6-t2" data-en="that are easy to wash.">that are easy to wash.</button></div><div class="cell" data-id="p6-t3" role="button" tabindex="0" style="width: 142px;"><div class="es" data-id="p6-t3">Menos fricción</div><button class="en" type="button" data-id="p6-t3" data-en="Less friction">Less friction</button></div><div class="cell" data-id="p6-t4" role="button" tabindex="0" style="width: 205px;"><div class="es" data-id="p6-t4">puede hacer que las rutinas</div><button class="en" type="button" data-id="p6-t4" data-en="can make routines">can make routines</button></div><div class="cell" data-id="p6-t5" role="button" tabindex="0" style="width: 226px;"><div class="es" data-id="p6-t5">se mantengan por más tiempo.</div><button class="en" type="button" data-id="p6-t5" data-en="stick longer.">stick longer.</button></div></div><div class="paragraph" data-paragraph="7"><div class="cell" data-id="p7-t0" role="button" tabindex="0" style="width: 143px;"><div class="es" data-id="p7-t0">Cuando aprendo</div><button class="en" type="button" data-id="p7-t0" data-en="When I learn">When I learn</button></div><div class="cell" data-id="p7-t1" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p7-t1">algo nuevo,</div><button class="en" type="button" data-id="p7-t1" data-en="something new,">something new,</button></div><div class="cell" data-id="p7-t2" role="button" tabindex="0" style="width: 135px;"><div class="es" data-id="p7-t2">tomo notas</div><button class="en" type="button" data-id="p7-t2" data-en="I take notes">I take notes</button></div><div class="cell" data-id="p7-t3" role="button" tabindex="0" style="width: 173px;"><div class="es" data-id="p7-t3">con palabras sencillas.</div><button class="en" type="button" data-id="p7-t3" data-en="in plain words.">in plain words.</button></div><div class="cell" data-id="p7-t4" role="button" tabindex="0" style="width: 122px;"><div class="es" data-id="p7-t4">Ese hábito</div><button class="en" type="button" data-id="p7-t4" data-en="That habit">That habit</button></div><div class="cell" data-id="p7-t5" role="button" tabindex="0" style="width: 179px;"><div class="es" data-id="p7-t5">ayuda a que la memoria</div><button class="en" type="button" data-id="p7-t5" data-en="helps memory">helps memory</button></div><div class="cell" data-id="p7-t6" role="button" tabindex="0" style="width: 102px;"><div class="es" data-id="p7-t6">lo retenga.</div><button class="en" type="button" data-id="p7-t6" data-en="hold on.">hold on.</button></div></div><div class="paragraph" data-paragraph="8"><div class="cell" data-id="p8-t0" role="button" tabindex="0" style="width: 93px;"><div class="es" data-id="p8-t0">Reviso</div><button class="en" type="button" data-id="p8-t0" data-en="I check">I check</button></div><div class="cell" data-id="p8-t1" role="button" tabindex="0" style="width: 142px;"><div class="es" data-id="p8-t1">mi calendario</div><button class="en" type="button" data-id="p8-t1" data-en="my calendar">my calendar</button></div><div class="cell" data-id="p8-t2" role="button" tabindex="0" style="width: 132px;"><div class="es" data-id="p8-t2">una vez al día.</div><button class="en" type="button" data-id="p8-t2" data-en="once a day.">once a day.</button></div><div class="cell" data-id="p8-t3" role="button" tabindex="0" style="width: 163px;"><div class="es" data-id="p8-t3">Una revisión rápida</div><button class="en" type="button" data-id="p8-t3" data-en="A quick review">A quick review</button></div><div class="cell" data-id="p8-t4" role="button" tabindex="0" style="width: 225px;"><div class="es" data-id="p8-t4">puede hacer que las sorpresas</div><button class="en" type="button" data-id="p8-t4" data-en="can make surprises">can make surprises</button></div><div class="cell" data-id="p8-t5" role="button" tabindex="0" style="width: 176px;"><div class="es" data-id="p8-t5">sean menos probables.</div><button class="en" type="button" data-id="p8-t5" data-en="less likely.">less likely.</button></div></div><div class="paragraph" data-paragraph="9"><div class="cell" data-id="p9-t0" role="button" tabindex="0" style="width: 152px;"><div class="es" data-id="p9-t0">Si me siento tenso,</div><button class="en" type="button" data-id="p9-t0" data-en="If I feel tense,">If I feel tense,</button></div><div class="cell" data-id="p9-t1" role="button" tabindex="0" style="width: 153px;"><div class="es" data-id="p9-t1">relajo la mandíbula</div><button class="en" type="button" data-id="p9-t1" data-en="I relax my jaw">I relax my jaw</button></div><div class="cell" data-id="p9-t2" role="button" tabindex="0" style="width: 166px;"><div class="es" data-id="p9-t2">y los hombros.</div><button class="en" type="button" data-id="p9-t2" data-en="and shoulders.">and shoulders.</button></div><div class="cell" data-id="p9-t3" role="button" tabindex="0" style="width: 177px;"><div class="es" data-id="p9-t3">Ese pequeño reinicio</div><button class="en" type="button" data-id="p9-t3" data-en="That small reset">That small reset</button></div><div class="cell" data-id="p9-t4" role="button" tabindex="0" style="width: 207px;"><div class="es" data-id="p9-t4">ayuda a que mi respiración</div><button class="en" type="button" data-id="p9-t4" data-en="helps my breathing">helps my breathing</button></div><div class="cell" data-id="p9-t5" role="button" tabindex="0" style="width: 132px;"><div class="es" data-id="p9-t5">se calme.</div><button class="en" type="button" data-id="p9-t5" data-en="slow down.">slow down.</button></div></div><div class="paragraph" data-paragraph="10"><div class="cell" data-id="p10-t0" role="button" tabindex="0" style="width: 163px;"><div class="es" data-id="p10-t0">Las caminatas cortas</div><button class="en" type="button" data-id="p10-t0" data-en="Short walks">Short walks</button></div><div class="cell" data-id="p10-t1" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p10-t1">ayudan al cuerpo</div><button class="en" type="button" data-id="p10-t1" data-en="help the body">help the body</button></div><div class="cell" data-id="p10-t2" role="button" tabindex="0" style="width: 189px;"><div class="es" data-id="p10-t2">a soltar tensión.</div><button class="en" type="button" data-id="p10-t2" data-en="release pressure.">release pressure.</button></div><div class="cell" data-id="p10-t3" role="button" tabindex="0" style="width: 188px;"><div class="es" data-id="p10-t3">Incluso diez minutos</div><button class="en" type="button" data-id="p10-t3" data-en="Even ten minutes">Even ten minutes</button></div><div class="cell" data-id="p10-t4" role="button" tabindex="0" style="width: 209px;"><div class="es" data-id="p10-t4">pueden hacer que el ánimo</div><button class="en" type="button" data-id="p10-t4" data-en="can make the mood">can make the mood</button></div><div class="cell" data-id="p10-t5" role="button" tabindex="0" style="width: 120px;"><div class="es" data-id="p10-t5">suba un poco.</div><button class="en" type="button" data-id="p10-t5" data-en="lift a little.">lift a little.</button></div></div><div class="paragraph" data-paragraph="11"><div class="cell" data-id="p11-t0" role="button" tabindex="0" style="width: 63px;"><div class="es" data-id="p11-t0">Hago</div><button class="en" type="button" data-id="p11-t0" data-en="I try">I try</button></div><div class="cell" data-id="p11-t1" role="button" tabindex="0" style="width: 157px;"><div class="es" data-id="p11-t1">unos pocos minutos</div><button class="en" type="button" data-id="p11-t1" data-en="a few minutes">a few minutes</button></div><div class="cell" data-id="p11-t2" role="button" tabindex="0" style="width: 153px;"><div class="es" data-id="p11-t2">de estiramientos.</div><button class="en" type="button" data-id="p11-t2" data-en="of stretching.">of stretching.</button></div><div class="cell" data-id="p11-t3" role="button" tabindex="0" style="width: 197px;"><div class="es" data-id="p11-t3">Me ayuda a que la espalda</div><button class="en" type="button" data-id="p11-t3" data-en="It helps my back">It helps my back</button></div><div class="cell" data-id="p11-t4" role="button" tabindex="0" style="width: 157px;"><div class="es" data-id="p11-t4">se sienta más suelta</div><button class="en" type="button" data-id="p11-t4" data-en="feel looser">feel looser</button></div><div class="cell" data-id="p11-t5" role="button" tabindex="0" style="width: 198px;"><div class="es" data-id="p11-t5">después de estar sentado.</div><button class="en" type="button" data-id="p11-t5" data-en="after sitting.">after sitting.</button></div></div><div class="paragraph" data-paragraph="12"><div class="cell" data-id="p12-t0" role="button" tabindex="0" style="width: 181px;"><div class="es" data-id="p12-t0">Cuando los mensajes</div><button class="en" type="button" data-id="p12-t0" data-en="When messages">When messages</button></div><div class="cell" data-id="p12-t1" role="button" tabindex="0" style="width: 127px;"><div class="es" data-id="p12-t1">llegan rápido,</div><button class="en" type="button" data-id="p12-t1" data-en="arrive fast,">arrive fast,</button></div><div class="cell" data-id="p12-t2" role="button" tabindex="0" style="width: 104px;"><div class="es" data-id="p12-t2">me detengo</div><button class="en" type="button" data-id="p12-t2" data-en="I pause">I pause</button></div><div class="cell" data-id="p12-t3" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p12-t3">antes de responder.</div><button class="en" type="button" data-id="p12-t3" data-en="before replying.">before replying.</button></div><div class="cell" data-id="p12-t4" role="button" tabindex="0" style="width: 131px;"><div class="es" data-id="p12-t4">Esa pausa</div><button class="en" type="button" data-id="p12-t4" data-en="That pause">That pause</button></div><div class="cell" data-id="p12-t5" role="button" tabindex="0" style="width: 221px;"><div class="es" data-id="p12-t5">puede hacer que mis palabras</div><button class="en" type="button" data-id="p12-t5" data-en="can make my words">can make my words</button></div><div class="cell" data-id="p12-t6" role="button" tabindex="0" style="width: 169px;"><div class="es" data-id="p12-t6">sean más cuidadosas.</div><button class="en" type="button" data-id="p12-t6" data-en="more careful.">more careful.</button></div></div><div class="paragraph" data-paragraph="13"><div class="cell" data-id="p13-t0" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p13-t0">Ordeno los archivos</div><button class="en" type="button" data-id="p13-t0" data-en="I sort files">I sort files</button></div><div class="cell" data-id="p13-t1" role="button" tabindex="0" style="width: 190px;"><div class="es" data-id="p13-t1">con nombres sencillos.</div><button class="en" type="button" data-id="p13-t1" data-en="by simple names.">by simple names.</button></div><div class="cell" data-id="p13-t2" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p13-t2">Las etiquetas claras</div><button class="en" type="button" data-id="p13-t2" data-en="Clear labels">Clear labels</button></div><div class="cell" data-id="p13-t3" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p13-t3">me ayudan a encontrar</div><button class="en" type="button" data-id="p13-t3" data-en="help me find">help me find</button></div><div class="cell" data-id="p13-t4" role="button" tabindex="0" style="width: 135px;"><div class="es" data-id="p13-t4">lo que necesito</div><button class="en" type="button" data-id="p13-t4" data-en="what I need">what I need</button></div><div class="cell" data-id="p13-t5" role="button" tabindex="0" style="width: 167px;"><div class="es" data-id="p13-t5">sin estrés.</div><button class="en" type="button" data-id="p13-t5" data-en="without stress.">without stress.</button></div></div><div class="paragraph" data-paragraph="14"><div class="cell" data-id="p14-t0" role="button" tabindex="0" style="width: 91px;"><div class="es" data-id="p14-t0">Mantengo</div><button class="en" type="button" data-id="p14-t0" data-en="I keep">I keep</button></div><div class="cell" data-id="p14-t1" role="button" tabindex="0" style="width: 157px;"><div class="es" data-id="p14-t1">un plan de respaldo</div><button class="en" type="button" data-id="p14-t1" data-en="a backup plan">a backup plan</button></div><div class="cell" data-id="p14-t2" role="button" tabindex="0" style="width: 208px;"><div class="es" data-id="p14-t2">para lo importante.</div><button class="en" type="button" data-id="p14-t2" data-en="for important work.">for important work.</button></div><div class="cell" data-id="p14-t3" role="button" tabindex="0" style="width: 184px;"><div class="es" data-id="p14-t3">Esa preparación</div><button class="en" type="button" data-id="p14-t3" data-en="That preparation">That preparation</button></div><div class="cell" data-id="p14-t4" role="button" tabindex="0" style="width: 229px;"><div class="es" data-id="p14-t4">puede hacer que los problemas</div><button class="en" type="button" data-id="p14-t4" data-en="can make problems">can make problems</button></div><div class="cell" data-id="p14-t5" role="button" tabindex="0" style="width: 187px;"><div class="es" data-id="p14-t5">se sientan manejables.</div><button class="en" type="button" data-id="p14-t5" data-en="feel manageable.">feel manageable.</button></div></div><div class="paragraph" data-paragraph="15"><div class="cell" data-id="p15-t0" role="button" tabindex="0" style="width: 100px;"><div class="es" data-id="p15-t0">Si un plan</div><button class="en" type="button" data-id="p15-t0" data-en="If a plan">If a plan</button></div><div class="cell" data-id="p15-t1" role="button" tabindex="0" style="width: 96px;"><div class="es" data-id="p15-t1">se rompe,</div><button class="en" type="button" data-id="p15-t1" data-en="breaks,">breaks,</button></div><div class="cell" data-id="p15-t2" role="button" tabindex="0" style="width: 95px;"><div class="es" data-id="p15-t2">ajusto</div><button class="en" type="button" data-id="p15-t2" data-en="I adjust">I adjust</button></div><div class="cell" data-id="p15-t3" role="button" tabindex="0" style="width: 208px;"><div class="es" data-id="p15-t3">una parte a la vez.</div><button class="en" type="button" data-id="p15-t3" data-en="one piece at a time.">one piece at a time.</button></div><div class="cell" data-id="p15-t4" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p15-t4">Los cambios pequeños</div><button class="en" type="button" data-id="p15-t4" data-en="Small changes">Small changes</button></div><div class="cell" data-id="p15-t5" role="button" tabindex="0" style="width: 237px;"><div class="es" data-id="p15-t5">pueden hacer que los resultados</div><button class="en" type="button" data-id="p15-t5" data-en="can make results">can make results</button></div><div class="cell" data-id="p15-t6" role="button" tabindex="0" style="width: 179px;"><div class="es" data-id="p15-t6">aparezcan antes.</div><button class="en" type="button" data-id="p15-t6" data-en="show up sooner.">show up sooner.</button></div></div><div class="paragraph" data-paragraph="16"><div class="cell" data-id="p16-t0" role="button" tabindex="0" style="width: 114px;"><div class="es" data-id="p16-t0">Practico</div><button class="en" type="button" data-id="p16-t0" data-en="I practice">I practice</button></div><div class="cell" data-id="p16-t1" role="button" tabindex="0" style="width: 116px;"><div class="es" data-id="p16-t1">decir que no</div><button class="en" type="button" data-id="p16-t1" data-en="saying no">saying no</button></div><div class="cell" data-id="p16-t2" role="button" tabindex="0" style="width: 128px;"><div class="es" data-id="p16-t2">con amabilidad.</div><button class="en" type="button" data-id="p16-t2" data-en="politely.">politely.</button></div><div class="cell" data-id="p16-t3" role="button" tabindex="0" style="width: 165px;"><div class="es" data-id="p16-t3">Ese límite</div><button class="en" type="button" data-id="p16-t3" data-en="That boundary">That boundary</button></div><div class="cell" data-id="p16-t4" role="button" tabindex="0" style="width: 172px;"><div class="es" data-id="p16-t4">ayuda a que mi tiempo</div><button class="en" type="button" data-id="p16-t4" data-en="helps my time">helps my time</button></div><div class="cell" data-id="p16-t5" role="button" tabindex="0" style="width: 180px;"><div class="es" data-id="p16-t5">se mantenga protegido.</div><button class="en" type="button" data-id="p16-t5" data-en="stay protected.">stay protected.</button></div></div><div class="paragraph" data-paragraph="17"><div class="cell" data-id="p17-t0" role="button" tabindex="0" style="width: 206px;"><div class="es" data-id="p17-t0">Cuando me siento cansado,</div><button class="en" type="button" data-id="p17-t0" data-en="When I feel tired,">When I feel tired,</button></div><div class="cell" data-id="p17-t1" role="button" tabindex="0" style="width: 67px;"><div class="es" data-id="p17-t1">como</div><button class="en" type="button" data-id="p17-t1" data-en="I eat">I eat</button></div><div class="cell" data-id="p17-t2" role="button" tabindex="0" style="width: 199px;"><div class="es" data-id="p17-t2">algo sencillo.</div><button class="en" type="button" data-id="p17-t2" data-en="something simple.">something simple.</button></div><div class="cell" data-id="p17-t3" role="button" tabindex="0" style="width: 159px;"><div class="es" data-id="p17-t3">Una comida estable</div><button class="en" type="button" data-id="p17-t3" data-en="A steady meal">A steady meal</button></div><div class="cell" data-id="p17-t4" role="button" tabindex="0" style="width: 202px;"><div class="es" data-id="p17-t4">puede hacer que la energía</div><button class="en" type="button" data-id="p17-t4" data-en="can make energy">can make energy</button></div><div class="cell" data-id="p17-t5" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p17-t5">vuelva poco a poco.</div><button class="en" type="button" data-id="p17-t5" data-en="return slowly.">return slowly.</button></div></div><div class="paragraph" data-paragraph="18"><div class="cell" data-id="p18-t0" role="button" tabindex="0" style="width: 77px;"><div class="es" data-id="p18-t0">Planeo</div><button class="en" type="button" data-id="p18-t0" data-en="I plan">I plan</button></div><div class="cell" data-id="p18-t1" role="button" tabindex="0" style="width: 174px;"><div class="es" data-id="p18-t1">unos pocos descansos</div><button class="en" type="button" data-id="p18-t1" data-en="a few breaks">a few breaks</button></div><div class="cell" data-id="p18-t2" role="button" tabindex="0" style="width: 190px;"><div class="es" data-id="p18-t2">durante el trabajo largo.</div><button class="en" type="button" data-id="p18-t2" data-en="during long work.">during long work.</button></div><div class="cell" data-id="p18-t3" role="button" tabindex="0" style="width: 167px;"><div class="es" data-id="p18-t3">Los descansos cortos</div><button class="en" type="button" data-id="p18-t3" data-en="Short rests">Short rests</button></div><div class="cell" data-id="p18-t4" role="button" tabindex="0" style="width: 172px;"><div class="es" data-id="p18-t4">ayudan a que la mente</div><button class="en" type="button" data-id="p18-t4" data-en="help the mind">help the mind</button></div><div class="cell" data-id="p18-t5" role="button" tabindex="0" style="width: 178px;"><div class="es" data-id="p18-t5">se mantenga despierta.</div><button class="en" type="button" data-id="p18-t5" data-en="stay sharp.">stay sharp.</button></div></div><div class="paragraph" data-paragraph="19"><div class="cell" data-id="p19-t0" role="button" tabindex="0" style="width: 216px;"><div class="es" data-id="p19-t0">Si le doy demasiadas vueltas,</div><button class="en" type="button" data-id="p19-t0" data-en="If I overthink,">If I overthink,</button></div><div class="cell" data-id="p19-t1" role="button" tabindex="0" style="width: 85px;"><div class="es" data-id="p19-t1">escribo</div><button class="en" type="button" data-id="p19-t1" data-en="I write">I write</button></div><div class="cell" data-id="p19-t2" role="button" tabindex="0" style="width: 172px;"><div class="es" data-id="p19-t2">la siguiente acción.</div><button class="en" type="button" data-id="p19-t2" data-en="the next action.">the next action.</button></div><div class="cell" data-id="p19-t3" role="button" tabindex="0" style="width: 116px;"><div class="es" data-id="p19-t3">Ese paso</div><button class="en" type="button" data-id="p19-t3" data-en="That step">That step</button></div><div class="cell" data-id="p19-t4" role="button" tabindex="0" style="width: 201px;"><div class="es" data-id="p19-t4">puede hacer que el camino</div><button class="en" type="button" data-id="p19-t4" data-en="can make the path">can make the path</button></div><div class="cell" data-id="p19-t5" role="button" tabindex="0" style="width: 154px;"><div class="es" data-id="p19-t5">se sienta más claro.</div><button class="en" type="button" data-id="p19-t5" data-en="feel clearer.">feel clearer.</button></div></div><div class="paragraph" data-paragraph="20"><div class="cell" data-id="p20-t0" role="button" tabindex="0" style="width: 91px;"><div class="es" data-id="p20-t0">Mantengo</div><button class="en" type="button" data-id="p20-t0" data-en="I keep">I keep</button></div><div class="cell" data-id="p20-t1" role="button" tabindex="0" style="width: 119px;"><div class="es" data-id="p20-t1">mi teléfono</div><button class="en" type="button" data-id="p20-t1" data-en="my phone">my phone</button></div><div class="cell" data-id="p20-t2" role="button" tabindex="0" style="width: 139px;"><div class="es" data-id="p20-t2">fuera de alcance</div><button class="en" type="button" data-id="p20-t2" data-en="out of reach">out of reach</button></div><div class="cell" data-id="p20-t3" role="button" tabindex="0" style="width: 171px;"><div class="es" data-id="p20-t3">cuando me concentro.</div><button class="en" type="button" data-id="p20-t3" data-en="when I focus.">when I focus.</button></div><div class="cell" data-id="p20-t4" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p20-t4">Esa distancia</div><button class="en" type="button" data-id="p20-t4" data-en="That distance">That distance</button></div><div class="cell" data-id="p20-t5" role="button" tabindex="0" style="width: 179px;"><div class="es" data-id="p20-t5">ayuda a que la atención</div><button class="en" type="button" data-id="p20-t5" data-en="helps attention">helps attention</button></div><div class="cell" data-id="p20-t6" role="button" tabindex="0" style="width: 121px;"><div class="es" data-id="p20-t6">se quede aquí.</div><button class="en" type="button" data-id="p20-t6" data-en="stay here.">stay here.</button></div></div><div class="paragraph" data-paragraph="21"><div class="cell" data-id="p21-t0" role="button" tabindex="0" style="width: 172px;"><div class="es" data-id="p21-t0">Una bandeja ordenada</div><button class="en" type="button" data-id="p21-t0" data-en="A tidy inbox">A tidy inbox</button></div><div class="cell" data-id="p21-t1" role="button" tabindex="0" style="width: 149px;"><div class="es" data-id="p21-t1">me ayuda a ver</div><button class="en" type="button" data-id="p21-t1" data-en="helps me see">helps me see</button></div><div class="cell" data-id="p21-t2" role="button" tabindex="0" style="width: 158px;"><div class="es" data-id="p21-t2">lo que importa.</div><button class="en" type="button" data-id="p21-t2" data-en="what matters.">what matters.</button></div><div class="cell" data-id="p21-t3" role="button" tabindex="0" style="width: 105px;"><div class="es" data-id="p21-t3">Respondo</div><button class="en" type="button" data-id="p21-t3" data-en="I answer">I answer</button></div><div class="cell" data-id="p21-t4" role="button" tabindex="0" style="width: 170px;"><div class="es" data-id="p21-t4">lo rápido</div><button class="en" type="button" data-id="p21-t4" data-en="the quick items">the quick items</button></div><div class="cell" data-id="p21-t5" role="button" tabindex="0" style="width: 80px;"><div class="es" data-id="p21-t5">primero.</div><button class="en" type="button" data-id="p21-t5" data-en="first.">first.</button></div></div><div class="paragraph" data-paragraph="22"><div class="cell" data-id="p22-t0" role="button" tabindex="0" style="width: 144px;"><div class="es" data-id="p22-t0">Cuando leo,</div><button class="en" type="button" data-id="p22-t0" data-en="When I read,">When I read,</button></div><div class="cell" data-id="p22-t1" role="button" tabindex="0" style="width: 136px;"><div class="es" data-id="p22-t1">bajo el ritmo</div><button class="en" type="button" data-id="p22-t1" data-en="I slow down">I slow down</button></div><div class="cell" data-id="p22-t2" role="button" tabindex="0" style="width: 147px;"><div class="es" data-id="p22-t2">en las líneas clave.</div><button class="en" type="button" data-id="p22-t2" data-en="at key lines.">at key lines.</button></div><div class="cell" data-id="p22-t3" role="button" tabindex="0" style="width: 122px;"><div class="es" data-id="p22-t3">Ese hábito</div><button class="en" type="button" data-id="p22-t3" data-en="That habit">That habit</button></div><div class="cell" data-id="p22-t4" role="button" tabindex="0" style="width: 224px;"><div class="es" data-id="p22-t4">puede hacer que el significado</div><button class="en" type="button" data-id="p22-t4" data-en="can make meaning">can make meaning</button></div><div class="cell" data-id="p22-t5" role="button" tabindex="0" style="width: 139px;"><div class="es" data-id="p22-t5">se quede mejor.</div><button class="en" type="button" data-id="p22-t5" data-en="stick better.">stick better.</button></div></div><div class="paragraph" data-paragraph="23"><div class="cell" data-id="p23-t0" role="button" tabindex="0" style="width: 144px;"><div class="es" data-id="p23-t0">Si algo</div><button class="en" type="button" data-id="p23-t0" data-en="If something">If something</button></div><div class="cell" data-id="p23-t1" role="button" tabindex="0" style="width: 176px;"><div class="es" data-id="p23-t1">se siente confuso,</div><button class="en" type="button" data-id="p23-t1" data-en="feels confusing,">feels confusing,</button></div><div class="cell" data-id="p23-t2" role="button" tabindex="0" style="width: 70px;"><div class="es" data-id="p23-t2">hago</div><button class="en" type="button" data-id="p23-t2" data-en="I ask">I ask</button></div><div class="cell" data-id="p23-t3" role="button" tabindex="0" style="width: 205px;"><div class="es" data-id="p23-t3">una pregunta clara.</div><button class="en" type="button" data-id="p23-t3" data-en="one clear question.">one clear question.</button></div><div class="cell" data-id="p23-t4" role="button" tabindex="0" style="width: 133px;"><div class="es" data-id="p23-t4">Esa claridad</div><button class="en" type="button" data-id="p23-t4" data-en="That clarity">That clarity</button></div><div class="cell" data-id="p23-t5" role="button" tabindex="0" style="width: 240px;"><div class="es" data-id="p23-t5">ayuda a que la conversación</div><button class="en" type="button" data-id="p23-t5" data-en="helps the conversation">helps the conversation</button></div><div class="cell" data-id="p23-t6" role="button" tabindex="0" style="width: 162px;"><div class="es" data-id="p23-t6">avance.</div><button class="en" type="button" data-id="p23-t6" data-en="move forward.">move forward.</button></div></div><div class="paragraph" data-paragraph="24"><div class="cell" data-id="p24-t0" role="button" tabindex="0" style="width: 85px;"><div class="es" data-id="p24-t0">Registro</div><button class="en" type="button" data-id="p24-t0" data-en="I track">I track</button></div><div class="cell" data-id="p24-t1" role="button" tabindex="0" style="width: 140px;"><div class="es" data-id="p24-t1">un logro pequeño</div><button class="en" type="button" data-id="p24-t1" data-en="a small win">a small win</button></div><div class="cell" data-id="p24-t2" role="button" tabindex="0" style="width: 116px;"><div class="es" data-id="p24-t2">cada día.</div><button class="en" type="button" data-id="p24-t2" data-en="each day.">each day.</button></div><div class="cell" data-id="p24-t3" role="button" tabindex="0" style="width: 194px;"><div class="es" data-id="p24-t3">Notar el progreso</div><button class="en" type="button" data-id="p24-t3" data-en="Noticing progress">Noticing progress</button></div><div class="cell" data-id="p24-t4" role="button" tabindex="0" style="width: 224px;"><div class="es" data-id="p24-t4">puede hacer que la motivación</div><button class="en" type="button" data-id="p24-t4" data-en="can make motivation">can make motivation</button></div><div class="cell" data-id="p24-t5" role="button" tabindex="0" style="width: 187px;"><div class="es" data-id="p24-t5">se sienta más constante.</div><button class="en" type="button" data-id="p24-t5" data-en="feel steadier.">feel steadier.</button></div></div><div class="paragraph" data-paragraph="25"><div class="cell" data-id="p25-t0" role="button" tabindex="0" style="width: 91px;"><div class="es" data-id="p25-t0">Mantengo</div><button class="en" type="button" data-id="p25-t0" data-en="I keep">I keep</button></div><div class="cell" data-id="p25-t1" role="button" tabindex="0" style="width: 147px;"><div class="es" data-id="p25-t1">mis compromisos</div><button class="en" type="button" data-id="p25-t1" data-en="my promises">my promises</button></div><div class="cell" data-id="p25-t2" role="button" tabindex="0" style="width: 172px;"><div class="es" data-id="p25-t2">pequeños y claros.</div><button class="en" type="button" data-id="p25-t2" data-en="small and clear.">small and clear.</button></div><div class="cell" data-id="p25-t3" role="button" tabindex="0" style="width: 163px;"><div class="es" data-id="p25-t3">Ese enfoque</div><button class="en" type="button" data-id="p25-t3" data-en="That approach">That approach</button></div><div class="cell" data-id="p25-t4" role="button" tabindex="0" style="width: 112px;"><div class="es" data-id="p25-t4">me ayuda</div><button class="en" type="button" data-id="p25-t4" data-en="helps me">helps me</button></div><div class="cell" data-id="p25-t5" role="button" tabindex="0" style="width: 198px;"><div class="es" data-id="p25-t5">a terminar lo que empiezo.</div><button class="en" type="button" data-id="p25-t5" data-en="finish what I start.">finish what I start.</button></div></div><div class="paragraph" data-paragraph="26"><div class="cell" data-id="p26-t0" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p26-t0">Cuando ocurre</div><button class="en" type="button" data-id="p26-t0" data-en="When a mistake">When a mistake</button></div><div class="cell" data-id="p26-t1" role="button" tabindex="0" style="width: 114px;"><div class="es" data-id="p26-t1">un error,</div><button class="en" type="button" data-id="p26-t1" data-en="happens,">happens,</button></div><div class="cell" data-id="p26-t2" role="button" tabindex="0" style="width: 72px;"><div class="es" data-id="p26-t2">arreglo</div><button class="en" type="button" data-id="p26-t2" data-en="I fix">I fix</button></div><div class="cell" data-id="p26-t3" role="button" tabindex="0" style="width: 155px;"><div class="es" data-id="p26-t3">el siguiente paso.</div><button class="en" type="button" data-id="p26-t3" data-en="the next step.">the next step.</button></div><div class="cell" data-id="p26-t4" role="button" tabindex="0" style="width: 85px;"><div class="es" data-id="p26-t4">Culpar</div><button class="en" type="button" data-id="p26-t4" data-en="Blame">Blame</button></div><div class="cell" data-id="p26-t5" role="button" tabindex="0" style="width: 153px;"><div class="es" data-id="p26-t5">no ayuda a que</div><button class="en" type="button" data-id="p26-t5" data-en="does not help">does not help</button></div><div class="cell" data-id="p26-t6" role="button" tabindex="0" style="width: 195px;"><div class="es" data-id="p26-t6">el trabajo mejore.</div><button class="en" type="button" data-id="p26-t6" data-en="the work improve.">the work improve.</button></div></div><div class="paragraph" data-paragraph="27"><div class="cell" data-id="p27-t0" role="button" tabindex="0" style="width: 105px;"><div class="es" data-id="p27-t0">Elijo</div><button class="en" type="button" data-id="p27-t0" data-en="I choose">I choose</button></div><div class="cell" data-id="p27-t1" role="button" tabindex="0" style="width: 156px;"><div class="es" data-id="p27-t1">un final tranquilo</div><button class="en" type="button" data-id="p27-t1" data-en="a calm ending">a calm ending</button></div><div class="cell" data-id="p27-t2" role="button" tabindex="0" style="width: 110px;"><div class="es" data-id="p27-t2">por la noche.</div><button class="en" type="button" data-id="p27-t2" data-en="at night.">at night.</button></div><div class="cell" data-id="p27-t3" role="button" tabindex="0" style="width: 209px;"><div class="es" data-id="p27-t3">Eso puede hacer que dormir</div><button class="en" type="button" data-id="p27-t3" data-en="It can make sleep">It can make sleep</button></div><div class="cell" data-id="p27-t4" role="button" tabindex="0" style="width: 140px;"><div class="es" data-id="p27-t4">sea más fácil</div><button class="en" type="button" data-id="p27-t4" data-en="come easier">come easier</button></div><div class="cell" data-id="p27-t5" role="button" tabindex="0" style="width: 208px;"><div class="es" data-id="p27-t5">después de un día ocupado.</div><button class="en" type="button" data-id="p27-t5" data-en="after a busy day.">after a busy day.</button></div></div><div class="paragraph" data-paragraph="28"><div class="cell" data-id="p28-t0" role="button" tabindex="0" style="width: 164px;"><div class="es" data-id="p28-t0">Bajo las luces</div><button class="en" type="button" data-id="p28-t0" data-en="I dim the lights">I dim the lights</button></div><div class="cell" data-id="p28-t1" role="button" tabindex="0" style="width: 140px;"><div class="es" data-id="p28-t1">y respiro</div><button class="en" type="button" data-id="p28-t1" data-en="and breathe">and breathe</button></div><div class="cell" data-id="p28-t2" role="button" tabindex="0" style="width: 146px;"><div class="es" data-id="p28-t2">unas pocas veces.</div><button class="en" type="button" data-id="p28-t2" data-en="a few times.">a few times.</button></div><div class="cell" data-id="p28-t3" role="button" tabindex="0" style="width: 175px;"><div class="es" data-id="p28-t3">Ese ritual tranquilo</div><button class="en" type="button" data-id="p28-t3" data-en="That quiet ritual">That quiet ritual</button></div><div class="cell" data-id="p28-t4" role="button" tabindex="0" style="width: 165px;"><div class="es" data-id="p28-t4">ayuda a que la mente</div><button class="en" type="button" data-id="p28-t4" data-en="helps the mind">helps the mind</button></div><div class="cell" data-id="p28-t5" role="button" tabindex="0" style="width: 85px;"><div class="es" data-id="p28-t5">suelte.</div><button class="en" type="button" data-id="p28-t5" data-en="let go.">let go.</button></div></div><div class="paragraph" data-paragraph="29"><div class="cell" data-id="p29-t0" role="button" tabindex="0" style="width: 126px;"><div class="es" data-id="p29-t0">Mañana,</div><button class="en" type="button" data-id="p29-t0" data-en="Tomorrow,">Tomorrow,</button></div><div class="cell" data-id="p29-t1" role="button" tabindex="0" style="width: 134px;"><div class="es" data-id="p29-t1">repetiré</div><button class="en" type="button" data-id="p29-t1" data-en="I will repeat">I will repeat</button></div><div class="cell" data-id="p29-t2" role="button" tabindex="0" style="width: 129px;"><div class="es" data-id="p29-t2">lo básico.</div><button class="en" type="button" data-id="p29-t2" data-en="the basics.">the basics.</button></div><div class="cell" data-id="p29-t3" role="button" tabindex="0" style="width: 144px;"><div class="es" data-id="p29-t3">La constancia</div><button class="en" type="button" data-id="p29-t3" data-en="Consistency">Consistency</button></div><div class="cell" data-id="p29-t4" role="button" tabindex="0" style="width: 260px;"><div class="es" data-id="p29-t4">puede hacer que los buenos hábitos</div><button class="en" type="button" data-id="p29-t4" data-en="can make good habits">can make good habits</button></div><div class="cell" data-id="p29-t5" role="button" tabindex="0" style="width: 68px;"><div class="es" data-id="p29-t5">duren.</div><button class="en" type="button" data-id="p29-t5" data-en="last.">last.</button></div></div></div>
+
+
+<script>
+(function(){
+  const app = document.getElementById('app');
+
+  // -----------------------------
+  // DATA (Option 3) — 30 paragraphs
+  // -----------------------------
+  const data = [
+    { p: 0, tokens: ["Today,","I picked","a calm theme:","steady habits.","Small steps","can make progress","feel real."],
+            trans:  ["Hoy,","elegí","un tema tranquilo:","hábitos constantes.","Los pasos pequeños","pueden hacer que el progreso","se sienta real."] },
+
+    { p: 1, tokens: ["In the morning,","I drink water","before coffee.","That simple start","helps the body","wake up gently."],
+            trans:  ["Por la mañana,","bebo agua","antes del café.","Ese inicio sencillo","ayuda al cuerpo","a despertarse con suavidad."] },
+
+    { p: 2, tokens: ["When tasks","feel heavy,","I write","three priorities.","That limit","can make choices","come easier."],
+            trans:  ["Cuando las tareas","se sienten pesadas,","escribo","tres prioridades.","Ese límite","puede hacer que las decisiones","sean más fáciles."] },
+
+    { p: 3, tokens: ["I keep","a short timer","for focused work.","It helps me","avoid drifting","and finish one thing."],
+            trans:  ["Pongo","un temporizador corto","para trabajar concentrado.","Me ayuda","a no distraerme","y a terminar una cosa."] },
+
+    { p: 4, tokens: ["If noise","builds up,","I lower it","where I can.","Quiet space","helps attention","stay steady."],
+            trans:  ["Si el ruido","se acumula,","lo bajo","cuando puedo.","Un espacio tranquilo","ayuda a que la atención","se mantenga constante."] },
+
+    { p: 5, tokens: ["A clean desk","makes the next step","feel simpler.","I clear","just one corner","to begin."],
+            trans:  ["Un escritorio ordenado","hace que el siguiente paso","se sienta más sencillo.","Limpio","solo una esquina","para empezar."] },
+
+    { p: 6, tokens: ["I choose","tools for cooking","that are easy to wash.","Less friction","can make routines","stick longer."],
+            trans:  ["Elijo","herramientas para cocinar","que sean fáciles de lavar.","Menos fricción","puede hacer que las rutinas","se mantengan por más tiempo."] },
+
+    { p: 7, tokens: ["When I learn","something new,","I take notes","in plain words.","That habit","helps memory","hold on."],
+            trans:  ["Cuando aprendo","algo nuevo,","tomo notas","con palabras sencillas.","Ese hábito","ayuda a que la memoria","lo retenga."] },
+
+    { p: 8, tokens: ["I check","my calendar","once a day.","A quick review","can make surprises","less likely."],
+            trans:  ["Reviso","mi calendario","una vez al día.","Una revisión rápida","puede hacer que las sorpresas","sean menos probables."] },
+
+    { p: 9, tokens: ["If I feel tense,","I relax my jaw","and shoulders.","That small reset","helps my breathing","slow down."],
+            trans:  ["Si me siento tenso,","relajo la mandíbula","y los hombros.","Ese pequeño reinicio","ayuda a que mi respiración","se calme."] },
+
+    { p: 10, tokens: ["Short walks","help the body","release pressure.","Even ten minutes","can make the mood","lift a little."],
+             trans: ["Las caminatas cortas","ayudan al cuerpo","a soltar tensión.","Incluso diez minutos","pueden hacer que el ánimo","suba un poco."] },
+
+    { p: 11, tokens: ["I try","a few minutes","of stretching.","It helps my back","feel looser","after sitting."],
+             trans: ["Hago","unos pocos minutos","de estiramientos.","Me ayuda a que la espalda","se sienta más suelta","después de estar sentado."] },
+
+    { p: 12, tokens: ["When messages","arrive fast,","I pause","before replying.","That pause","can make my words","more careful."],
+             trans: ["Cuando los mensajes","llegan rápido,","me detengo","antes de responder.","Esa pausa","puede hacer que mis palabras","sean más cuidadosas."] },
+
+    { p: 13, tokens: ["I sort files","by simple names.","Clear labels","help me find","what I need","without stress."],
+             trans: ["Ordeno los archivos","con nombres sencillos.","Las etiquetas claras","me ayudan a encontrar","lo que necesito","sin estrés."] },
+
+    { p: 14, tokens: ["I keep","a backup plan","for important work.","That preparation","can make problems","feel manageable."],
+             trans: ["Mantengo","un plan de respaldo","para lo importante.","Esa preparación","puede hacer que los problemas","se sientan manejables."] },
+
+    { p: 15, tokens: ["If a plan","breaks,","I adjust","one piece at a time.","Small changes","can make results","show up sooner."],
+             trans: ["Si un plan","se rompe,","ajusto","una parte a la vez.","Los cambios pequeños","pueden hacer que los resultados","aparezcan antes."] },
+
+    { p: 16, tokens: ["I practice","saying no","politely.","That boundary","helps my time","stay protected."],
+             trans: ["Practico","decir que no","con amabilidad.","Ese límite","ayuda a que mi tiempo","se mantenga protegido."] },
+
+    { p: 17, tokens: ["When I feel tired,","I eat","something simple.","A steady meal","can make energy","return slowly."],
+             trans: ["Cuando me siento cansado,","como","algo sencillo.","Una comida estable","puede hacer que la energía","vuelva poco a poco."] },
+
+    { p: 18, tokens: ["I plan","a few breaks","during long work.","Short rests","help the mind","stay sharp."],
+             trans: ["Planeo","unos pocos descansos","durante el trabajo largo.","Los descansos cortos","ayudan a que la mente","se mantenga despierta."] },
+
+    { p: 19, tokens: ["If I overthink,","I write","the next action.","That step","can make the path","feel clearer."],
+             trans: ["Si le doy demasiadas vueltas,","escribo","la siguiente acción.","Ese paso","puede hacer que el camino","se sienta más claro."] },
+
+    { p: 20, tokens: ["I keep","my phone","out of reach","when I focus.","That distance","helps attention","stay here."],
+             trans: ["Mantengo","mi teléfono","fuera de alcance","cuando me concentro.","Esa distancia","ayuda a que la atención","se quede aquí."] },
+
+    { p: 21, tokens: ["A tidy inbox","helps me see","what matters.","I answer","the quick items","first."],
+             trans: ["Una bandeja ordenada","me ayuda a ver","lo que importa.","Respondo","lo rápido","primero."] },
+
+    { p: 22, tokens: ["When I read,","I slow down","at key lines.","That habit","can make meaning","stick better."],
+             trans: ["Cuando leo,","bajo el ritmo","en las líneas clave.","Ese hábito","puede hacer que el significado","se quede mejor."] },
+
+    { p: 23, tokens: ["If something","feels confusing,","I ask","one clear question.","That clarity","helps the conversation","move forward."],
+             trans: ["Si algo","se siente confuso,","hago","una pregunta clara.","Esa claridad","ayuda a que la conversación","avance."] },
+
+    { p: 24, tokens: ["I track","a small win","each day.","Noticing progress","can make motivation","feel steadier."],
+             trans: ["Registro","un logro pequeño","cada día.","Notar el progreso","puede hacer que la motivación","se sienta más constante."] },
+
+    { p: 25, tokens: ["I keep","my promises","small and clear.","That approach","helps me","finish what I start."],
+             trans: ["Mantengo","mis compromisos","pequeños y claros.","Ese enfoque","me ayuda","a terminar lo que empiezo."] },
+
+    { p: 26, tokens: ["When a mistake","happens,","I fix","the next step.","Blame","does not help","the work improve."],
+             trans: ["Cuando ocurre","un error,","arreglo","el siguiente paso.","Culpar","no ayuda a que","el trabajo mejore."] },
+
+    { p: 27, tokens: ["I choose","a calm ending","at night.","It can make sleep","come easier","after a busy day."],
+             trans: ["Elijo","un final tranquilo","por la noche.","Eso puede hacer que dormir","sea más fácil","después de un día ocupado."] },
+
+    { p: 28, tokens: ["I dim the lights","and breathe","a few times.","That quiet ritual","helps the mind","let go."],
+             trans: ["Bajo las luces","y respiro","unas pocas veces.","Ese ritual tranquilo","ayuda a que la mente","suelte."] },
+
+    { p: 29, tokens: ["Tomorrow,","I will repeat","the basics.","Consistency","can make good habits","last."],
+             trans: ["Mañana,","repetiré","lo básico.","La constancia","puede hacer que los buenos hábitos","duren."] }
+  ];
+
+  // -----------------------------
+  // VALIDATION (prevent blank page / render error)
+  // -----------------------------
+  function validateData(){
+    if (!Array.isArray(data) || data.length !== 30) {
+      return "Datos inválidos: deben existir exactamente 30 párrafos.";
+    }
+    for (const para of data){
+      if (!Array.isArray(para.tokens) || !Array.isArray(para.trans)) {
+        return "Datos inválidos: tokens/translations no son arrays.";
+      }
+      if (para.tokens.length !== para.trans.length) {
+        return "Tokens y traducciones deben tener misma longitud en cada párrafo.";
+      }
+      if (para.tokens.length === 0) {
+        return "Párrafo vacío detectado.";
+      }
+      // basic empty-check to avoid invisible tokens
+      for (let i=0; i<para.tokens.length; i++){
+        const a = (para.tokens[i] ?? "").toString().trim();
+        const b = (para.trans[i] ?? "").toString().trim();
+        if (!a || !b) return "Token vacío detectado.";
+        if (/^[.,!?;:]+$/.test(a) || /^[.,!?;:]+$/.test(b)) return "Token de solo puntuación detectado.";
+      }
+    }
+    return null;
+  }
+
+  // -----------------------------
+  // MEASUREMENT (includes bold width)
+  // reservedWidth = max(EN normal, EN bold, ES) + padding
+  // -----------------------------
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function setFont(weight, sizePx){
+    ctx.font = `${weight} ${sizePx}px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif`;
+  }
+
+  function textWidth(txt, weight, sizePx){
+    setFont(weight, sizePx);
+    return Math.ceil(ctx.measureText(txt).width);
+  }
+
+  function computeCellWidth(enText, esText){
+    const enSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--en-size')) || 20;
+    const esSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--es-size')) || 14;
+
+    const wEnNormal = textWidth(enText, '400', enSize);
+    const wEnBold   = textWidth(enText, '700', enSize);
+    const wEs       = textWidth(esText, '400', esSize);
+
+    const padX = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--pad-x')) || 12;
+    // cell has padding left+right => 2*padX
+    const inner = Math.max(wEnNormal, wEnBold, wEs);
+    return inner + (2 * padX) + 2; // +2 small safety
+  }
+
+  // -----------------------------
+  // TTS (robust, reads exactly clicked EN token)
+  // -----------------------------
+  function stripTrailingPunct(s){
+    return (s || "").replace(/[“”"'\u2019]/g,'').replace(/[.,!?;:]+$/,'').trim();
+  }
+
+  function ensureVoicesReady(){
+    return new Promise((resolve) => {
+      const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+      if (voices && voices.length) return resolve(voices);
+      const onChanged = () => {
+        speechSynthesis.removeEventListener('voiceschanged', onChanged);
+        resolve(speechSynthesis.getVoices());
+      };
+      speechSynthesis.addEventListener('voiceschanged', onChanged);
+      // fallback resolve soon even if event doesn't fire
+      setTimeout(() => {
+        try { speechSynthesis.removeEventListener('voiceschanged', onChanged); } catch(e){}
+        resolve(speechSynthesis.getVoices());
+      }, 600);
+    });
+  }
+
+  async function speakToken(enText){
+    if (!window.speechSynthesis) return;
+    const toSpeak = stripTrailingPunct(enText);
+    if (!toSpeak || toSpeak === "❌") return;
+
+    try { speechSynthesis.cancel(); } catch(e){}
+
+    await ensureVoicesReady();
+
+    const u = new SpeechSynthesisUtterance(toSpeak);
+    u.lang = "en-US";
+
+    // Prefer an en-US voice if available
+    const voices = speechSynthesis.getVoices() || [];
+    const best = voices.find(v => (v.lang || "").toLowerCase().startsWith("en-us"))
+              || voices.find(v => (v.lang || "").toLowerCase().startsWith("en"))
+              || null;
+    if (best) u.voice = best;
+
+    speechSynthesis.speak(u);
+  }
+
+  // -----------------------------
+  // RENDER
+  // -----------------------------
+  const openIds = new Set();
+
+  function render(){
+    app.innerHTML = "";
+
+    const err = validateData();
+    if (err){
+      const box = document.createElement('div');
+      box.className = 'errorBox';
+      box.textContent = `Error al renderizar. Revisa tokens y traducciones:\n\n${err}`;
+      app.appendChild(box);
+      return;
+    }
+
+    for (const para of data){
+      const pDiv = document.createElement('div');
+      pDiv.className = 'paragraph';
+      pDiv.setAttribute('data-paragraph', String(para.p));
+
+      for (let i=0; i<para.tokens.length; i++){
+        const en = para.tokens[i];
+        const es = para.trans[i];
+
+        const id = `p${para.p}-t${i}`;
+
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.setAttribute('data-id', id);
+        cell.setAttribute('role','button');
+        cell.setAttribute('tabindex','0');
+
+        const esSpan = document.createElement('div');
+        esSpan.className = 'es';
+        esSpan.setAttribute('data-id', id);
+        esSpan.textContent = es;
+
+        const enBtn = document.createElement('button');
+        enBtn.className = 'en';
+        enBtn.type = 'button';
+        enBtn.setAttribute('data-id', id);
+        enBtn.setAttribute('data-en', en);
+        enBtn.textContent = en;
+
+        cell.appendChild(esSpan);
+        cell.appendChild(enBtn);
+
+        // Apply stored open state
+        if (openIds.has(id)) cell.classList.add('open');
+
+        // Click/tap toggle
+        const toggle = async () => {
+          const isOpen = cell.classList.toggle('open');
+          if (isOpen) openIds.add(id); else openIds.delete(id);
+          if (isOpen) await speakToken(en);
+        };
+
+        cell.addEventListener('click', (e) => {
+          // Ensure click anywhere inside the cell toggles
+          e.preventDefault();
+          toggle();
+        });
+
+        cell.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+
+        // Width computed after append (fonts ready)
+        pDiv.appendChild(cell);
+      }
+
+      app.appendChild(pDiv);
+    }
+
+    applyWidths();
+  }
+
+  function applyWidths(){
+    const cells = app.querySelectorAll('.cell');
+    for (const cell of cells){
+      const enEl = cell.querySelector('.en');
+      const esEl = cell.querySelector('.es');
+      if (!enEl || !esEl) continue;
+
+      const enText = enEl.getAttribute('data-en') || enEl.textContent || "";
+      const esText = esEl.textContent || "";
+
+      const w = computeCellWidth(enText, esText);
+      cell.style.width = w + "px";
+    }
+  }
+
+  // Keep open states; only recompute widths on resize
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => applyWidths(), 80);
+  });
+
+  // -----------------------------
+  // INIT
+  // -----------------------------
+  render();
+})();
+</script>
+
+
+
+
+
+</body></html>
